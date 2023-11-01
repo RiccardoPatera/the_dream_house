@@ -18,14 +18,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        $brands = ['Blanc Mariclò','Mathilde M.','Wald','Cupido & Co.', 'Souvenir Planet', 'EuroCinsa', 'Le Stelle', 'Stewo' , 'Giovinazzo', 'Lamart', 'Palais Royal' ,'EDG',
-        'Coccole di casa', 'Orval' , 'Lenox', 'Kaleidos', 'Simla', 'Rosso Regale','Gattinoni', 'Light and Living' , 'SiroTime', 'Lene Bjerre', "Price's Candles",'Horo Mia', 'Tono su Tono' , 'Dekoratief', 'Egan', 'Chipolo' , 'Kit-Cat', 'Caruso & Co.' ,'B&P Italia' ];
-
-        foreach ($brands as $brand) {
-                Brand::create([
-                'name' => $brand
-            ]);
-        }
 
     }
 

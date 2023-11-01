@@ -49,7 +49,7 @@ $maxWidth = [
     style="display: {{ $show ? 'block' : 'none' }};"
 >
     <div
-        x-show="tw-show"
+        x-show="show"
         class="tw-fixed tw-inset-0 tw-transform tw-transition-all"
         x-on:click="show = false"
         x-transition:enter="tw-ease-out tw-duration-300"
@@ -64,7 +64,7 @@ $maxWidth = [
 
     <div
         x-show="show"
-        class="tw-mb-6 tw-p-4 tw-bg-white tw-rounded-lg tw-overflow-hidden tw-shadow-xl tw-transform tw-transition-all tw-sm:w-full {{ $maxWidth }} sm:tw-mx-auto"
+        class="tw-mb-6 tw-p-4  tw-bg-white tw-rounded-lg tw-overflow-hidden tw-shadow-xl tw-transform tw-transition-all tw-sm:w-full {{ $maxWidth }} sm:tw-mx-auto"
         x-transition:enter="tw-ease-out tw-duration-300"
         x-transition:enter-start="tw-opacity-0 tw-translate-y-4 sm:tw-translate-y-0 sm:tw-scale-95"
         x-transition:enter-end="tw-opacity-100 tw-translate-y-0 sm:tw-scale-100"

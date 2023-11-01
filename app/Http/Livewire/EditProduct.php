@@ -23,12 +23,14 @@ class EditProduct extends Component
     public $category;
     public $quantity;
     public $occurence;
+    public $color;
     public $barcode;
 
 
     protected $rules = [
         'title' => 'required|min:5',
         'brand' => 'required',
+        'color'=>'required',
         'price' => 'required|doesnt_start_with:-',
         'description' => 'required|min:15',
         'category' => 'required',
@@ -40,6 +42,7 @@ class EditProduct extends Component
     protected $messages = [
         'title.required'=> 'Il titolo è obbligatorio',
         'brand.required'=> 'Il brand è obbligatorio',
+        'color.required'=>'Il colore è obbligatorio',
         'price.required'=> 'Il prezzo è obbligatorio',
         'description.required'=> 'La descrizione è obbligatoria',
         'occurence.required'=> "L'occasione è obbligatoria",
@@ -65,7 +68,7 @@ class EditProduct extends Component
         Product::where('id', $this->product->id)->first()->categories()->sync($this->category);
         Product::where('id', $this->product->id)->first()->brands()->sync($this->brand);
         Product::where('id', $this->product->id)->first()->occurences()->sync($this->occurence);
-
+        Product::where('id', $this->product->id)->color()->sync($this->color);
 
         if ($this->img) {
              $this->product->update([
@@ -93,6 +96,7 @@ class EditProduct extends Component
         $this->barcode=$this->product->barcode;
         $this->category=$this->product->categories->pluck('id');
         $this->occurence=$this->product->occurences->pluck('id');
+        $this->color=$this->product->color->pluck('id');
     }
 
     public function render()

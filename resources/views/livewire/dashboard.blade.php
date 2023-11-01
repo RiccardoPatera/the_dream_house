@@ -1,4 +1,4 @@
-<div>
+<div class="tw-min-h-screen">
 @if(session('message'))
         <div class="alert acc-bg">
             <h6 class="text-center text-white">{{session('message')}}</h6>
@@ -24,7 +24,6 @@
                         </div>
                         <div class="content z-5">
                             <p class="heading text-white ">{{$product->title}}</p>
-                            <p class="text-white">{{$product->description}}</p>
                             @foreach ( $product->categories as $category )
                                 <div class="row w-100 justify-content-evenly align-items-evenly ">
                                     <p class="rounded bg-white p-1  acc-color col-9 text-nowrap">{{$category->name}}</p>

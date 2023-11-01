@@ -55,7 +55,7 @@
         @error('occurence') <span class="error text-danger">{{ $message }}</span> @enderror
     </div>
     <div class="mb-3 ">
-        <label for="barcode" class="form-label">Descrizione</label>
+        <label for="barcode" class="form-label">EAN</label>
         <input wire:model='barcode' id="barcode"  class="form-control">
         @error('barcode') <span class="error text-danger">{{ $message }}</span> @enderror
     </div>

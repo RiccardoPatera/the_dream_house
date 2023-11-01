@@ -24,6 +24,11 @@ use App\Http\Controllers\ProductController;
 
 // Home
 Route::get('/', [PublicController::class , 'welcome'])->name('welcome');
+Route::get('/privacy_policy', [PublicController::class , 'privacy'])->name('privacy');
+
+
+// Rotta About_us
+Route::get('/about_us', [PublicController::class , 'about_us'])->name('about_us');
 
 // Rotta Profilo
 Route::get('/profile', [PublicController::class , 'profile'])->name('profile');
@@ -35,10 +40,10 @@ Route::get('/orders', [OrderController::class , 'orders'])->name('orders');
 
 
 // Rotta visualizzazione tutti i prodotti
-Route::get('/products', [ProductController::class , 'index'])->name('product_index');
+Route::get('/store', [ProductController::class , 'index'])->name('product_index');
 
 // Rotta visualizzazione dettaglio prodotto
-Route::get('/products/detail/{product}', [ProductController::class , 'show'])->name('product_detail');
+Route::get('/store/detail/{product}', [ProductController::class , 'show'])->name('product_detail');
 
 // Rotta Dashboard
 Route::get('/dashboard', [ProductController::class , 'dashboard'])->name('dashboard');
@@ -50,7 +55,7 @@ Route::get('/edit/{product}', [ProductController::class , 'edit'])->name('edit')
 Route::delete('/delete/{product}', [ProductController::class , 'destroy'])->name('delete');
 
 // Add to Cart
-Route::get('/cart/', [CartController::class , 'cartsummary'])->name('cartsummary');
+Route::get('/cart', [CartController::class , 'cartsummary'])->name('cartsummary');
 
 // WishList
 Route::get('/wishlist', [ProductController::class , 'wishlist'])->name('wishlist');
@@ -60,6 +65,9 @@ Route::get('/canceled', [PaymentController::class , 'canceled'])->name('checkout
 Route::get('/shipping_info', [PaymentController::class , 'shipping'])->name('shipping');
 Route::post('/checkout', [PaymentController::class , 'checkout'])->name('checkout');
 Route::post('/webhook', [PaymentController::class , 'webhook'])->name('webhook');
+
+
+
 
 
 // Route::get('/stripe', StripePay::class)->name('stripe');

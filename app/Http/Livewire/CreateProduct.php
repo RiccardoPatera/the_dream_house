@@ -3,6 +3,7 @@
 namespace App\Http\Livewire;
 
 use App\Models\Brand;
+use App\Models\Color;
 use App\Models\Image;
 use App\Models\Product;
 use Livewire\Component;
@@ -20,8 +21,9 @@ class CreateProduct extends Component
     public $price;
     public $img;
     public $quantity;
-    public $occurence;
+    public $occurence=[];
     public $barcode;
+    // public $color;
     public $category=[];
 
 
@@ -36,6 +38,7 @@ class CreateProduct extends Component
         'occurence'=>'required',
         'img'=> 'required',
         'quantity'=>'required',
+        // 'color'=>'required',
         'barcode'=>'required|max:13|string',
     ];
 
@@ -43,6 +46,7 @@ class CreateProduct extends Component
         'title.required'=> 'Il titolo è obbligatorio',
         'brand.required'=> 'Il brand è obbligatorio',
         'price.required'=> 'Il prezzo è obbligatorio',
+        // 'color.required'=>'Il colore è obbligatorio',
         'price.regex'=> 'Il prezzo è un valore numerico con due valori decimali.',
         'description.required'=> 'La descrizione è obbligatoria',
         'occurence.required'=> "L'occasione è obbligatoria",
@@ -85,6 +89,7 @@ class CreateProduct extends Component
         $product->categories()->attach($this->category);
         $product->brands()->attach($this->brand);
         $product->occurences()->attach($this->occurence);
+        
 
 
         File::deleteDirectory(storage_path('/app/livewire-tmp'));
@@ -104,6 +109,7 @@ class CreateProduct extends Component
             'categories'=>Category::all(),
             'brands'=>Brand::all(),
             'occurences'=>Occurence::all(),
+            'colors'=>Color::all(),
         ]);
     }
 }

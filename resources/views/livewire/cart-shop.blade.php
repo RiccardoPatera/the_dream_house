@@ -68,7 +68,7 @@
           @endif
           @else
           <div class="tw-flex tw-flex-col">
-              <h6 class="tw-font-bold acc-color">Devi essere loggato per aggiungere prodotti al tuo carrello </h6>
+              <h6 class="tw-font-bold acc-color">Devi effettuare il login per aggiungere prodotti al tuo carrello </h6>
               <a  class="acc-bg tw-text-white tw-p-3 tw-no-underline tw-rounded tw-m-2 text-center" href="{{route('login')}}">Login</a>
           </div>
           @endif

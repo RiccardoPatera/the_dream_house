@@ -16,6 +16,7 @@ class AdminSeeder extends Seeder
     {
         User::create([
             'name'=>'Alessandra',
+            'surname'=>'Schilardi',
             'email'=>'thedreamhouseinterior@gmail.com',
             'password'=>Hash::make('Alessandra1981?'),
             'is_admin'=>1,

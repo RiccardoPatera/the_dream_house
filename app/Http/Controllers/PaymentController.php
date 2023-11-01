@@ -6,9 +6,14 @@ use Stripe\Stripe;
 use Stripe\Webhook;
 use App\Models\User;
 use App\Models\Order;
+use App\Mail\OrderMail;
+use App\Models\Product;
 use App\Models\Shipping;
 use Illuminate\Http\Request;
+use App\Models\OrderedProduct;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -35,44 +40,186 @@ class PaymentController extends Controller
 
     public function checkout(Request $request){
         $user=Auth::user();
+        $total=0;
         if(count($user->cartitems)>0){
             $lineItems = [];
             Stripe::setApiKey(config('stripe.sk'));
 
-
+            
             foreach ($user->cartitems as $cartitem) {
 
 
             $product_name=$cartitem->product->title;
             $product_image=$cartitem->product->images->first()->url;
-            $total=$cartitem->product->price;
+            $price=$cartitem->product->price;
             $quantity=$cartitem->quantity;
-            $image_url='127.0.0.1:8000'. Storage::url($product_image);
+            $image_url='thedreamhouseinteriors.com'. Storage::url($product_image);
+            $total+=$cartitem->product->price;
 
             $lineItems[]= [
                 'price_data' => [
                     'product_data' => [
                         'name' => $product_name,
-                        'images' => ['https://picsum.photos/200/300'],
+                        'images' => [$image_url],
                     ],
                     'currency' => 'eur',
-                    'unit_amount' => $total *100,
+                    'unit_amount' => $price *100,
                 ],
                 'quantity' => $quantity,
 
             ];
             }
 
+            $stripe = new \Stripe\StripeClient('sk_test_51Ng5glFmUvlHusW192qiad03Zfy1H7wRVi8B6vyfyCXtIMJoI8e1ODL4pWQJjeQQ16x0ENHTkBTmRqpeIjQsq9FA00vz60OfMg');
 
+            
+            switch($request->state){
 
+            
 
-        $session = \Stripe\Checkout\Session::create([
-            'line_items' => [$lineItems],
-            'mode' => 'payment',
-            'customer_email'=>$user->email,
-            'success_url' => route('checkout.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
-            'cancel_url' => route('checkout.canceled', [], true),
-        ]);
+            case 'IT':
+
+                if($total<70){
+                    $session = \Stripe\Checkout\Session::create([
+                    'line_items' => [$lineItems],
+                    'mode' => 'payment',
+                    'customer_email'=>$user->email,
+                    'success_url' => route('checkout.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
+                    'cancel_url' => route('checkout.canceled', [], true),
+                    'customer_creation'=>'always',
+                    'shipping_address_collection' => ['allowed_countries' => ['IT']],
+                    'shipping_options' => [
+                        [
+                        'shipping_rate_data' => [
+                            'type' => 'fixed_amount',
+                            'fixed_amount' => [
+                            'amount' => 800,
+                            'currency' => 'eur',
+                            ],
+                            'display_name' => 'Spedizione Standard',
+                            'delivery_estimate' => [
+                            'minimum' => [
+                                'unit' => 'business_day',
+                                'value' => 2,
+                            ],
+                            'maximum' => [
+                                'unit' => 'business_day',
+                                'value' => 4,
+                            ],
+                            ],
+                        ],
+                        ],
+                    ],
+                ]);
+                break;
+                }
+                else{
+                    $session = \Stripe\Checkout\Session::create([
+                        'line_items' => [$lineItems],
+                        'mode' => 'payment',
+                        'customer_email'=>$user->email,
+                        'success_url' => route('checkout.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
+                        'cancel_url' => route('checkout.canceled', [], true),
+                        'customer_creation'=>'always',
+                        'shipping_address_collection' => ['allowed_countries' => ['IT']],
+                        'shipping_options' => [
+                            [
+                            'shipping_rate_data' => [
+                                'type' => 'fixed_amount',
+                                'fixed_amount' => [
+                                'amount' => 0,
+                                'currency' => 'eur',
+                                ],
+                                'display_name' => 'Spedizione Gratuita per ordini superiori ai 70 euro',
+                                'delivery_estimate' => [
+                                'minimum' => [
+                                    'unit' => 'business_day',
+                                    'value' => 2,
+                                ],
+                                'maximum' => [
+                                    'unit' => 'business_day',
+                                    'value' => 4,
+                                ],
+                                ],
+                            ],
+                            ],
+                        ],
+                    ]);
+                    break;
+                }
+
+                case 'FR':
+
+                    $session = \Stripe\Checkout\Session::create([
+                        'line_items' => [$lineItems],
+                        'mode' => 'payment',
+                        'customer_email'=>$user->email,
+                        'success_url' => route('checkout.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
+                        'cancel_url' => route('checkout.canceled', [], true),
+                        'customer_creation'=>'always',
+                        'shipping_address_collection' => ['allowed_countries' => ['FR']],
+                        'shipping_options' => [
+                            [
+                            'shipping_rate_data' => [
+                                'type' => 'fixed_amount',
+                                'fixed_amount' => [
+                                'amount' => 1600,
+                                'currency' => 'eur',
+                                ],
+                                'display_name' => 'Spedizione Europea',
+                                'delivery_estimate' => [
+                                'minimum' => [
+                                    'unit' => 'business_day',
+                                    'value' => 2,
+                                ],
+                                'maximum' => [
+                                    'unit' => 'business_day',
+                                    'value' => 7,
+                                ],
+                                ],
+                            ],
+                            ],
+                        ],
+                    ]);
+                    break;
+
+                    case 'ES':
+
+                        $session = \Stripe\Checkout\Session::create([
+                            'line_items' => [$lineItems],
+                            'mode' => 'payment',
+                            'customer_email'=>$user->email,
+                            'success_url' => route('checkout.success', [], true) . "?session_id={CHECKOUT_SESSION_ID}",
+                            'cancel_url' => route('checkout.canceled', [], true),
+                            'customer_creation'=>'always',
+                            'shipping_address_collection' => ['allowed_countries' => ['ES']],
+                            'shipping_options' => [
+                                [
+                                'shipping_rate_data' => [
+                                    'type' => 'fixed_amount',
+                                    'fixed_amount' => [
+                                    'amount' => 1600,
+                                    'currency' => 'eur',
+                                    ],
+                                    'display_name' => 'Spedizione Europea',
+                                    'delivery_estimate' => [
+                                    'minimum' => [
+                                        'unit' => 'business_day',
+                                        'value' => 2,
+                                    ],
+                                    'maximum' => [
+                                        'unit' => 'business_day',
+                                        'value' => 7,
+                                    ],
+                                    ],
+                                ],
+                                ],
+                            ],
+                        ]);
+                        break;
+
+                        
+        }
 
         // if($session->url==route('order_success'))
             $order = new Order();
@@ -83,11 +230,19 @@ class PaymentController extends Controller
 
             $order->total_price=$total;
             $order->session_id=$session->id;
+            $order->user_id=$user->id;
             $order->save();
             foreach ($user->cartitems as $cartitem) {
-                $order->products()->attach($cartitem->product->id);
+                OrderedProduct::create([
+                    'order_id'=>$order->id,
+                    'product_id'=>$cartitem->product->id,
+                    'quantity'=>$cartitem->quantity,
+                ]);
             }
-            $order->users()->attach(Auth::id());
+
+            
+
+            // $order->users()->attach(Auth::id());
 
             $shipping= new Shipping();
             $shipping->order_id=$order->id;
@@ -99,25 +254,27 @@ class PaymentController extends Controller
             $shipping->state=$request->state;
             $shipping->save();
 
-            foreach($user->cartitems as $cartitem){
-                $cartitem->delete();
-            }
+            
 
-            return redirect($session->url);
+            return redirect()->intended($session->url);
         }
     }
 
 
 
 
-    public function success(Request $request, )
+    public function success(Request $request)
     {
-        \Stripe\Stripe::setApiKey(env('STRIPE_SECRET_KEY'));
+
+        $stripe = new \Stripe\StripeClient(env('STRIPE_SECRET_KEY'));
+
         $sessionId = $request->get('session_id');
 
 
+
         try {
-            $session = \Stripe\Checkout\Session::retrieve($sessionId);
+            $session = $stripe->checkout->sessions->retrieve($sessionId);
+            
 
             if (!$session) {
                 throw new NotFoundHttpException;
@@ -126,16 +283,17 @@ class PaymentController extends Controller
 
 
             $order = Order::where('session_id', $session->id)->first();
-            $customer_name=$order->user->name;
+
+            
             if (!$order) {
                 throw new NotFoundHttpException();
             }
-            if ($order->status === 'unpaid') {
-                $order->status = 'paid';
-                $order->save();
-            }
 
-            return view('order.success',compact('customer_name'));
+           
+            
+
+           
+            return view('order.success',compact('order'));
 
 
         } catch (\Exception $e) {
@@ -144,14 +302,19 @@ class PaymentController extends Controller
 
     }
 
-    public function canceled()
+    public function canceled(Request $request )
     {
-        return view('order.canceled');
+
+
+           
+            return view('order.canceled');
+            
+
+            
     }
 
-    public function webhook()
-    {
-
+    public function webhook(){
+        
         $endpoint_secret = env('STRIPE_WEBHOOK_SECRET');
 
         $payload = @file_get_contents('php://input');
@@ -159,7 +322,7 @@ class PaymentController extends Controller
         $event = null;
 
         try {
-            $event = Webhook::constructEvent(
+            $event = \Stripe\Webhook::constructEvent(
                 $payload, $sig_header, $endpoint_secret
             );
         } catch (\UnexpectedValueException $e) {
@@ -171,21 +334,24 @@ class PaymentController extends Controller
         }
 
     // Handle the event
-    switch ($event->type) {
-            case 'payment_intent.canceled':
-                $session = $event->data->object;
-                $order = Order::where('session_id', $session->id)->first();
-                $order->delete();
-
+        switch ($event->type) {
             case 'checkout.session.completed':
                 $session = $event->data->object;
 
                 $order = Order::where('session_id', $session->id)->first();
-                if ($order && $order->status === 'unpaid') {
-                    $order->status = 'paid';
-                    $order->save();
-                    // Send email to customer
-                }
+                if ($order->status  === 'unpaid') {
+                        $order->status = 'paid';
+                        $order->save();
+                        foreach($order->orderedproducts as $orderedproduct){
+                            $ordered_quantity=$orderedproduct->quantity;
+                            $product_quantity=$orderedproduct->product->quantity;
+                            $product_id=$orderedproduct->product->id;
+                            $product=Product::where('id', $product_id);
+                            $product->update([
+                                'quantity'=> $product_quantity - $ordered_quantity,
+                            ]);
+                        }
+                    }
 
             // ... handle other event types
             default:
@@ -193,7 +359,6 @@ class PaymentController extends Controller
         }
 
         return response('');
-
     }
-
 }
+

@@ -13,7 +13,7 @@ return [
     |
     */
 
-    'failed' => 'Credenziali errate',
+    'failed' => 'La combinazione email e password non risulta corretta',
     'password' => 'La pasword inserita non è corretta.',
     'password_confirmation.min'=>'La password deve contenere almeno :value caratteri',
     'throttle' => 'Troppi tentavi di accesso, Riprova fra :seconds secondi.',

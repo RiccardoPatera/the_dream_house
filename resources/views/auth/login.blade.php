@@ -20,7 +20,7 @@
                         <input type="text" class="form-control" id="email" aria-describedby="emailHelp" name="email">
                     </div>
                     @error('email')
-                        <span class="tw-bg-[color:var(--acc)] error text-white p-2 rounded tw-mt-2 ">{{ $message }}</span>
+                        <span class="tw-bg-[color:var(--acc)] error text-white p-2 rounded tw-my-2 ">{{ $message }}</span>
                     @enderror
 
                     <div class="mb-3 mt-2">
@@ -28,7 +28,7 @@
                     <input type="password" class="form-control" id="password" name="password">
                     </div>
                     @error('password')
-                     <span class="tw-bg-[color:var(--acc)] error text-white p-2 rounded tw-mt-2">{{ $message }}</span>
+                     <span class="tw-bg-[color:var(--acc)] error text-white p-2 rounded tw-my-2">{{ $message }}</span>
                     @enderror
                     <button type="submit" class="acc-bg tw-border-none w-100  tw-rounded  tw-p-2 text-white  mt-2">Conferma</button>
                 </form>

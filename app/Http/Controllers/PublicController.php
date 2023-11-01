@@ -12,7 +12,13 @@ class PublicController extends Controller
         return view('welcome');
     }
 
+    public function privacy(){ 
+        return view('privacy');  
+    }
 
+    public function about_us(){ 
+        return view('about_us');  
+    }
 
     public function profile(){
         if(!Auth::user()){

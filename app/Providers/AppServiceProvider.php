@@ -5,7 +5,9 @@ namespace App\Providers;
 use Laravel\Cashier\Cashier;
 use Illuminate\Support\Collection;
 use Illuminate\Support\ServiceProvider;
+use Whitecube\LaravelCookieConsent\Consent;
 use Illuminate\Pagination\LengthAwarePaginator;
+use Whitecube\LaravelCookieConsent\Facades\Cookies;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -37,5 +39,6 @@ class AppServiceProvider extends ServiceProvider
             );
         });
 
-    }
+
+        }
 }

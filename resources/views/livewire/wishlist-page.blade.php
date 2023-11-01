@@ -10,7 +10,7 @@
                                 <img src="{{Storage::url($product->images[0]->url)}}" class='img-box'>
                             </div>
                             <div class="content z-5">
-                                <h2 class=" text-white ">{{$product->title}}</h2>
+                                <h6 class="  tw-whitespace-break-spaces tw-break-all text-white ">{{$product->title}}</h6>
                                 <a href='{{route('product_detail',compact('product'))}}'class=" bg-light tw-font-bold tw-p-2 rounded text-black  tw-no-underline my-1 tw-cursor-pointer tw-border-2 tw-border-white tw-border-solid tw-text-center hover:tw-border-black tw-transition tw-ease-in-out tw-delay-150 hover:tw-translate-y-1 hover:tw-scale-110 tw-duration-300 col-8 tw-w-full">
                                 Dettaglio</a>
                                 <button wire:click='AddToCart(@js($product->id))'class="  bg-light tw-font-bold tw-p-2 rounded text-black  tw-no-underline my-1 tw-cursor-pointer tw-border-2 tw-border-white tw-border-solid tw-text-center hover:tw-border-black tw-transition tw-ease-in-out tw-delay-150 hover:tw-translate-y-1 hover:tw-scale-110 tw-duration-300 col-8 tw-w-full">

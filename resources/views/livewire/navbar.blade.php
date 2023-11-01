@@ -1,13 +1,15 @@
-<nav class="navbar navbar-expand-lg w-100  ">
+<nav class="navbar navbar-expand-lg w-100">
     <div class="container-fluid ">
-        <div class="col-12 tw-flex tw-justify-center    ">
+        <div class="col-12 tw-flex tw-justify-center">
             <div class="row align-items-center justify-content-center w-100  ">
                 <div class="col-4 d-none d-lg-flex">
 
                 </div>
 
                 <div class=" col-6 col-lg-4 tw-flex tw-justify-start lg:tw-justify-center tw-my-3">
-                    <img src={{Storage::url('public/media/logo2.svg')}} alt="" class="logo tw-p-2 ">
+                    <a href="/">
+                        <img src={{asset('media/logo/logo.svg')}} alt="logo" class="logo tw-p-2 ">
+                    </a>
                 </div>
                 <div class="col-6 col-md-4 tw-flex tw-justify-end tw-my-3">
                     @auth
@@ -103,10 +105,10 @@
                                     </li>
                                     @foreach ($brands as $brand )
                                     <li  class=" col-3 brandname position-relative d-flex justify-content-center">
-                                        <a class="dropdown-item nav-drop-item  " wire:click='search_brand({{$brand->id}})'  >
+                                        <a class="dropdown-item nav-drop-item    " wire:click='search_brand({{$brand->id}})'  >
                                             <img src={{asset('media/logo/logo'. $brand->id . '.webp')}} alt="" class="logo-nav brand-img " >
                                             <div class="brand-text d-none w-100 ">
-                                                <h5 class="text-center text-dark">{{$brand->name}}</h5>
+                                                <h6  class=" tw-text-sm  text-center  brand ">{{$brand->name}}</h6>
                                             </div>
                                         </a>
                                     </li>
@@ -126,7 +128,7 @@
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link fw-bold" href="">Chi siamo</a>
+                            <a class="nav-link fw-bold" href="{{route('about_us')}}">Chi siamo</a>
                         </li>
                     </ul>
                 </div>

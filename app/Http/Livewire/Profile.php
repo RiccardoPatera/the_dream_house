@@ -16,6 +16,7 @@ class Profile extends Component
 
     public $user;
     public $name;
+    public $surname;
     public $email;
     public $current_password;
     public $password_confirmation;
@@ -29,6 +30,7 @@ class Profile extends Component
 
     protected $rules=[
         'name'=>'required',
+        'surname'=>'required',
         'email'=>"required|email|",
         'current_password'=>'required',
         'password' => 'required|min:8|confirmed|different:current_password'
@@ -36,6 +38,7 @@ class Profile extends Component
 
     protected $messages=[
         'name.required'=>"Il campo nome è obbligatorio",
+        'surname.required'=>"Il campo nome è obbligatorio",
         'email.required'=>"Il campo email è obbligatorio",
         'email.email'=>"Il campo email è deve rispettare il formato mail",
         'current_password.required'=>"Il campo Password Attuale è obbligatorio",
@@ -50,6 +53,7 @@ class Profile extends Component
     public function profile_update(){
         $this->validate([
             'name'=>'required',
+            'surname'=>'required',
         ]);
 
         if(Auth::user()->email!=$this->email)
@@ -61,6 +65,7 @@ class Profile extends Component
        $user=User::findOrFail($this->user->id)
         ->update([
         'name'=>$this->name,
+        'surname'=>$this->surname,
         'email'=>$this->email,
         ]);
 
@@ -127,6 +132,7 @@ class Profile extends Component
 
     public function mount(){
         $this->name=Auth::user()->name;
+        $this->surname=Auth::user()->surname;
         $this->email=Auth::user()->email;
         if(Auth::user()->shipping){
             $this->address=Auth::user()->shipping->address;

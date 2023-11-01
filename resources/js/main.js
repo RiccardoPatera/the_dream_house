@@ -1,6 +1,11 @@
-import Swiper from 'swiper/bundle';
+
 import Offcanvas from '../../node_modules/bootstrap/js/src/offcanvas';
+import bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
 let logout=document.querySelector('#logout');
+
+
+const popoverTriggerList = document.querySelectorAll('[data-bs-toggle="popover"]')
+const popoverList = [...popoverTriggerList].map(popoverTriggerEl => new bootstrap.Popover(popoverTriggerEl));
 
 if (logout) {
     logout.addEventListener('click', (event)=>{
@@ -9,6 +14,9 @@ if (logout) {
         logoutForm.submit();
     });
 }
+const brandList = document.querySelectorAll('.brand')
+const brandListSelected=[...brandList].map(brand => brand.addEventListener('click', ()=> brand.classList.add('tw-text-white')))
+
 
 
 let categories=document.querySelectorAll(".brandname");
@@ -129,28 +137,28 @@ const notyf = new Notyf({
 
 
 
+    
+var swiper = new Swiper(".mySwiper", {
+    spaceBetween: 10,
+    slidesPerView: 4,
+    freeMode: true,
+    watchSlidesProgress: true,
+  });
+  var swiper2 = new Swiper(".mySwiper2", {
+    spaceBetween: 10,
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    thumbs: {
+      swiper: swiper,
+    },
+  });
 
 
 
 
 
-
-   const swiper = new Swiper(".mySwiper", {
-        spaceBetween: 10,
-        slidesPerView: 4,
-        freeMode: true,
-        watchSlidesProgress: true,
-      });
-      var swiper2 = new Swiper(".mySwiper2", {
-        spaceBetween: 10,
-        navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev",
-        },
-        thumbs: {
-          swiper: swiper,
-        },
-      });
 
 
 const rangeInput = document.querySelectorAll(".range-input input"),

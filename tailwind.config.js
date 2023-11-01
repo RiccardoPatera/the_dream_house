@@ -22,8 +22,9 @@ export default {
     preflight: false,
     },
     plugins: [
-
-    ],
+        require('@tailwindcss/forms'),
+        require('tailwind-accent-color')(),
+      ],
     theme: {
     extend: {},
     },

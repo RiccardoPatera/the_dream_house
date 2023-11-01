@@ -61,48 +61,6 @@ class IndexProduct extends Component
         }
      }
 
-    // public function AddToCart($id){
-
-    //     $cart=session('cart');
-    //     if (!Auth::user()){
-    //         return redirect(route('login'))->with('mustlog', 'Devi effettuare il login per aggiungere prodotti al tuo carrello');
-    //     }
-
-    //     elseif(Product::findOrFail($id)->quantity<1){
-    //         $this->dispatchBrowserEvent('item_not_avaible');
-    //     }
-
-    //     elseif(isset($cart[$id])){
-
-    //         if($cart[$id]["quantity"]>=(Product::findOrFail($id)->quantity)){
-    //             $this->dispatchBrowserEvent('item_max');
-    //         }
-
-    //         else{
-    //             $product=Product::findOrFail($id);
-    //                 $cart[$id]['quantity']++;
-    //             }
-
-    //     }
-    //     elseif(!isset($cart[$id])){
-    //         $product=Product::findOrFail($id);
-    //         $cart[$id]=[
-    //             'id'=>$product->id,
-    //             'product_title'=>$product->title,
-    //             'img'=>$product->images[0]->url,
-    //             'price'=>$product->price,
-    //             'quantity'=>1,
-    //             't_quantity'=>$product->quantity
-    //             ];
-
-
-    //         }
-    //         session()->put('cart', $cart);
-    //         $this->emit('refresh_cart');
-    //         $this->dispatchBrowserEvent('item_add');
-
-    //     }
-
 
     public function AddToCart($id){
 
@@ -128,24 +86,6 @@ class IndexProduct extends Component
             $this->emit('refresh_cart');
             $this->dispatchBrowserEvent('item_add');
         }
-
-
-
-        // $this->dispatchBrowserEvent('item_not_avaible');
-
-        // elseif(isset($cart[$id])){
-
-        //     if(>=(Product::findOrFail($id)->quantity)){
-        //         $this->dispatchBrowserEvent('item_max');
-        //     }
-
-        //     else{
-        //         $product=Product::findOrFail($id);
-        //             $cart[$id]['quantity']++;
-        //         }
-
-        // }
-
 
         }
 
@@ -308,6 +248,8 @@ class IndexProduct extends Component
                 $this->range_max_searched= $this->max_price;
                 $this->range_min_searched= $this->min_price;
 
+             $this->resetPage();
+
         }
 
 
@@ -332,8 +274,6 @@ class IndexProduct extends Component
 
     public function render()
     {
-            // $cart=Auth::user()->cart;
-            // dd($cart->products()->get());
             // Ricerca Tramite Navbar tramite sessioni
         if(session('session_b')){
             $this->brand=session('session_b');

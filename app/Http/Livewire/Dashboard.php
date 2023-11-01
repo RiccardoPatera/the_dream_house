@@ -21,6 +21,8 @@ class Dashboard extends Component
         else{
             $this->products=Product::search($this->search)->get();
         }
+
+        $this->resetPage();
      }
 
 

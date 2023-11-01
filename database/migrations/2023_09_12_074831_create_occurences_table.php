@@ -19,13 +19,7 @@ return new class extends Migration
         });
 
 
-    $occurences = ['Natale','Pasqua','Nascita','Battesimo','Comunione','Cresima','Matrimonio','Laurea','Anniversari'];
-
-        foreach ($occurences as $occurence) {
-                Occurence::create([
-                'name' => $occurence
-            ]);
-        }
+    
     }
     /**
      * Reverse the migrations.

@@ -15,24 +15,26 @@
                     </div>
                     <div class="carousel-inner">
                     <div class="carousel-item active">
-                        <img src="{{Storage::url('public/media/letto.jpg')}}" class="d-block w-100" alt="...">
+                        <img src={{asset("media/home/home1.jpg")}} class="d-block w-100 tw-object-contain " alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                        <h5>First slide label</h5>
-                        <p>Scopri tutti i nostri prodotti</p>
+                            <div class="tw-text-white tw-p-2">
+                                <h5>Zucche decorative , Lene Bjerre</h5>
+                                <a class="tw-text-white" href={{route('product_index')}}>Visualizza sul catalogo</a>
+                            </div>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="{{Storage::url('public/media/tavolo.jpg')}}" class="d-block w-100" alt="...">
+                        <img src="{{asset("media/home/home2.jpg")}}" class="d-block w-100 tw-object-contain " alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                        <h5>Second slide label</h5>
-                        <p>Some representative placeholder content for the second slide.</p>
+                        <h5>Ragazza con palloncini, Tono su Tono</h5>
+                        <a class="tw-text-white" href={{route('product_index')}}>Visualizza sul catalogo</a>
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="{{Storage::url('public/media/tavolo2.jpg')}}" class="d-block w-100" alt="...">
+                        <img src="{{asset("media/home/home3.jpg")}}" class="d-block w-100 tw-object-contain" alt="...">
                         <div class="carousel-caption d-none d-md-block">
-                        <h5>Third slide label</h5>
-                        <p>Some representative placeholder content for the third slide.</p>
+                        <h5>Mamma con bambino, Palais Royal</h5>
+                        <a class="tw-text-white" href={{route('product_index')}}>Visualizza sul catalogo</a>
                         </div>
                     </div>
                     </div>
@@ -46,9 +48,9 @@
                     </button>
                 </div>
 
-            <div class="row  justify-content-center vh-100 my-5">
+            <div class="row  justify-content-center  my-5">
                 <div class="col-12 col-md-6  lg:tw-h-screen  order-md-2 my-2 my-md-0 text-center  ">
-                    <img src="{{Storage::url('public/media/4.jpg')}}" class="img-home  lg:tw-max-h-full object-fit-cover tw-object-center" >
+                    <img src="{{asset("media/home/home4.jpg")}}" class="img-home   object-fit-cover tw-object-center tw-max-h[70%]" >
                 </div>
                 <div class="col-12 col-md-6 vh-md-100  d-flex flex-column justify-content-center align-items-center  order-md-1 my-2 my-md-0 ">
                     <h2 class="title fs-1 fw-bold ">Il Nostro Catalogo</h2>
@@ -58,12 +60,12 @@
 
 
                 <div class="col-12 col-md-6 order-md-3 my-4">
-                    <img src="{{Storage::url('public/media/2.jpg')}}" class="img-home " >
+                    <img src="{{asset("media/home/home5.jpg")}}" class="img-home tw-max-h[70%]" >
                 </div>
                 <div class="col-12 col-md-6 vh-md-100  d-flex flex-column justify-content-center align-items-center order-md-4 my-2 my-md-0">
-                    <h2 class="title fs-1 fw-bold ">Le nostre collezioni </h2>
-                    <p class="desc fs-5">Scopri le nostre collezioni</p>
-                    <a href="" class="main-color link-home p-4">Scopri di più</a>
+                    <h2 class="title fs-1 fw-bold ">Chi Siamo </h2>
+                    <p class="desc fs-5">Qualcosa su di noi</p>
+                    <a href="{{route('about_us')}}" class="main-color link-home p-4">Scopri di più</a>
                 </div>
             </div>
         </div>

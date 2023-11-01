@@ -63,13 +63,18 @@
             @error('brand') <span class="error text-danger">{{ $message }}</span> @enderror
         </div>
 
+
         <div class="mb-3">
-            <label  for="occurence">Occasione</label>
-            <select  wire:model='occurence' id="occurence" class="form-select">
+            <h6>Occasione</h6>
+            <div class="tw-grid tw-grid-cols-4 tw-bg-white tw-p-2 tw-rounded">
                 @foreach ($occurences as $occurence)
-                    <option value="{{$occurence->id}}" >{{ $occurence->name }}</option>
+                <div class="tw-flex tw-justify-between tw-px-3">
+                    <label  for={{$occurence->name}} >{{$occurence->name}} </label>
+                    <input  wire:model='occurence' class="form-check-input" type="checkbox"  id={{$occurence->name}}   value="{{$occurence->id}}">
+                </div>
                 @endforeach
-            </select>
+            </div>
+            
             @error('occurence') <span class="error text-danger">{{ $message }}</span> @enderror
         </div>
         <div class="mb-3 ">
@@ -77,8 +82,17 @@
             <input type="number" minlength="14" wire:model='barcode' id="barcode"  class="form-control">
             @error('barcode') <span class="error text-danger">{{ $message }}</span> @enderror
         </div>
-
-
-
+        {{-- <div class="mb-3">
+            <h6>Colore</h6>
+            <div class="tw-grid tw-grid-cols-4 tw-p-2 tw-bg-white tw-rounded">
+                    @foreach ($colors as $color)
+                    <div class="tw-flex tw-items-center tw-m-2">
+                        <input  type="radio" wire:model='color' value={{$color->id}}  class="tw-w-7 tw-h-7 tw-py-2 " style='accent-color:{{$color->style}}; background-color:{{$color->style}}'>
+                        <label class="tw-ml-2 tw-text-sm tw-font-medium">{{ucfirst($color->name)}}</label>
+                    </div>
+                    @endforeach
+            </div>
+            @error('color') <span class="error text-danger">{{ $message }}</span> @enderror
+        </div> --}}
       <button type="submit" class="btn bg-light my-2">Conferma</button>
 </form>

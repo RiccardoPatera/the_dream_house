@@ -19,13 +19,7 @@ return new class extends Migration
         });
 
 
-        $categories = ['Outlet','Profumatori','Candele','Bomboniere','Tessile','Oggettistica','Accessori','Materiale per confezionare','Prima Infanzia','Decorazioni'];
-
-        foreach ($categories as $category) {
-                Category::create([
-                'name' => $category
-            ]);
-        }
+        
     }
 
 
